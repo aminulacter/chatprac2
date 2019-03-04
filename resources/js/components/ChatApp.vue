@@ -1,34 +1,40 @@
 <template>
-    <div class="chat-app">
-        <conversation :contact="selectedContact" />
-        <contactsList :contacts="contacts" />
-    </div>
+  <div class="chat-app">
+    <conversation :contact="selectedContact" :messages="messages"/>
+    <contactsList :contacts="contacts" @selected="startConversationWith"/>
+  </div>
 </template>
 
 <script>
-    import Conversation from './Conversation';
-    import ContactsList from './Contacstlist';
-    export default {
-        props: {
-            user: {
-                type: Object,
-                required: ture
-            }
-        }
-            
-        ,
-        data(){
-            return{
-                selectedContact: null,
-                messages: [],
-                contacts:[]
-            }
-        },
-        mounted() {
-            axios.get('/contacts')
-            .then(response =>  this.contacts = response.data)
-            console.log('Component mounted.')
-        },
-        components: { Conversation, ContactsList}
+import Conversation from "./Conversation";
+import ContactsList from "./Contactslist";
+export default {
+  props: {
+    user: {
+      type: Object,
+      required: true
     }
+  },
+
+  data() {
+    return {
+      selectedContact: null,
+      messages: [],
+      contacts: []
+    };
+  },
+  mounted() {
+    axios.get("/contacts").then(response => (this.contacts = response.data));
+    console.log("Component mounted.");
+  },
+  methods: {
+    startConversationWith(contact) {
+      axios.get(`/conversation/${contact.id}`).then(response => {
+        this.messages = response.data;
+        this.selectedContact = contact;
+      });
+    }
+  },
+  components: { Conversation, ContactsList }
+};
 </script>

@@ -8,7 +8,7 @@
                 <div class="card-header">Aminul Messanger</div>
 
                 <div class="card-body" id="app">
-                   <chat-app :user={{ auth()->user() }}></chat-app>
+                   <chat-app :user="{{ auth::user()->toJson() }}"></chat-app>
                 </div>
             </div>
         </div>
