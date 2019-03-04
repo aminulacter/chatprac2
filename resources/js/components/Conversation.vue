@@ -29,5 +29,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.conversation{
+  flex:5;
+}
 </style>
