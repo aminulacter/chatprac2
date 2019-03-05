@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     sendMessage(text) {
-      console.log(text);
+     
       if (!this.contact) {
         return;
       }
@@ -33,7 +33,7 @@ export default {
           text: text
         })
         .then(response => {
-          console.log(response.data);
+         
           this.$emit("new", response.data);
         })
         .catch(error => console.log(error));

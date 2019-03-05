@@ -36,4 +36,10 @@ class NewMessage implements ShouldBroadcastNow
     {
         return new PrivateChannel('messages.' . $this->message->to);
     }
+
+    public function broadcastWith()
+    {
+        $this->message->load('fromContact');
+        return ["message" => $this->message];
+    }
 }
